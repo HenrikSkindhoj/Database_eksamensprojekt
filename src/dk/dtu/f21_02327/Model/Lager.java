@@ -1,16 +1,28 @@
 package dk.dtu.f21_02327.Model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class Lager {
     private String afdelingsNavn;
-    private HashSet<Vacciner> vaccinationsTyper;
+    private HashMap<Vacciner,Integer> vaccinationsTyper;
 
     public Lager(){
+        vaccinationsTyper = new HashMap<>();
+        for(Vacciner vac: Vacciner.values())
+        {
+            vaccinationsTyper.put(vac,0);
+        }
+    }
 
+    public void setInventory(Vacciner vacineType, int inventory)
+    {
+        for( Map.Entry<Vacciner, Integer> entry : vaccinationsTyper.entrySet())
+        {
+            if(entry.getKey() == vacineType)
+            {
+                
+            }
+        }
     }
 
 }
