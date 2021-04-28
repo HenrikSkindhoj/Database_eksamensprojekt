@@ -4,7 +4,7 @@ public class Certifikater {
 
     private int medarbejderID;
     private int certifikatDato;
-    private int vaccinationsTypeID;
+    private Vacciner vaccinationsTypeID;
 
     public Certifikater(){
 

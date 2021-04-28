@@ -4,7 +4,7 @@ public class Person {
 
     private long cpr;
     private String personNavn;
-    Vacciner vacciner;
+    Vacciner vaccine;
 
     public Person(){
 
