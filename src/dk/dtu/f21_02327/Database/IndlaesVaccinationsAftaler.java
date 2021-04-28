@@ -1,4 +1,4 @@
-package dk.dtu.f21_02327;
+package dk.dtu.f21_02327.Database;
 
 /**
  * Denne klasse håndterer indlæsning af vaccinationsaftaler fra den fil der modtages fra sundhedsmyndighederne dagligt.
@@ -9,6 +9,8 @@ package dk.dtu.f21_02327;
  * @author Thorbjørn Konstantinovitz
  *
  */
+
+import dk.dtu.f21_02327.Controller.VaccinationsAftale;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

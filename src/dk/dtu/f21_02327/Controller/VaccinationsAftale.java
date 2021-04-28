@@ -1,4 +1,4 @@
-package dk.dtu.f21_02327;
+package dk.dtu.f21_02327.Controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

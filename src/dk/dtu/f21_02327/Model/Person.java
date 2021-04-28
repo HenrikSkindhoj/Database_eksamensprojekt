@@ -1,9 +1,9 @@
-package dk.dtu.f21_02327;
+package dk.dtu.f21_02327.Model;
 
 public class Person {
 
     private long cpr;
-    private String PersonNavn;
+    private String personNavn;
     Vacciner vacciner;
 
     public Person(){

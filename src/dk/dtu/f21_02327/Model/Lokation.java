@@ -1,4 +1,4 @@
-package dk.dtu.f21_02327;
+package dk.dtu.f21_02327.Model;
 
 public class Lokation {
     private String afdelingsNavn;

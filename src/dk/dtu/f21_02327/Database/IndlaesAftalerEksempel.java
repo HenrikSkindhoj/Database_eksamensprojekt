@@ -1,9 +1,10 @@
-package dk.dtu.f21_02327;
+package dk.dtu.f21_02327.Database;
 
 import java.io.IOException;
 import java.util.List;
-import dk.dtu.f21_02327.IndlaesVaccinationsAftaler;
-import dk.dtu.f21_02327.VaccinationsAftale;
+
+import dk.dtu.f21_02327.Controller.VaccinationsAftale;
+import dk.dtu.f21_02327.Database.IndlaesVaccinationsAftaler;
 
 public class IndlaesAftalerEksempel {
 
