@@ -14,15 +14,16 @@ import java.util.Date;
 public class VaccinationsAftale {
     private final long cprnr;
     private final String navn;
-
-    private final Date aftaltTidspunkt;
+    private int medarbejderID;
+    private final Date vaccinationsDato;
+    private int vaccinationsTidspunkt;
     private final String vaccineType;
     private final String lokation;
 
-    public VaccinationsAftale(long cprnr, String navn, Date aftaltTidspunkt, String vaccineType, String lokation) {
+    public VaccinationsAftale(long cprnr, String navn, Date vaccinationsDato, String vaccineType, String lokation) {
         this.cprnr = cprnr;
         this.navn = navn;
-        this.aftaltTidspunkt = aftaltTidspunkt;
+        this.vaccinationsDato = vaccinationsDato;
         this.vaccineType = vaccineType;
         this.lokation = lokation;
     }
@@ -35,8 +36,8 @@ public class VaccinationsAftale {
         return navn;
     }
 
-    public Date getAftaltTidspunkt() {
-        return aftaltTidspunkt;
+    public Date getVaccinationsDato() {
+        return vaccinationsDato;
     }
 
     public String getVaccineType() {
@@ -52,6 +53,6 @@ public class VaccinationsAftale {
         final String D = ";";
         final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyyMMdd" +D +"HHmm");
 
-        return getCprnr() +D + getNavn() +D +dateFormatter.format(getAftaltTidspunkt()) +D +getLokation() +D +getVaccineType();
+        return getCprnr() +D + getNavn() +D +dateFormatter.format(getVaccinationsDato()) +D +getLokation() +D +getVaccineType();
     }
 }
