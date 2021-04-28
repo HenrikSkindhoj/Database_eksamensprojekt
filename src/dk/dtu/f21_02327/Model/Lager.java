@@ -20,7 +20,7 @@ public class Lager {
         {
             if(entry.getKey() == vacineType)
             {
-                
+                vaccinationsTyper.put(vacineType, inventory);
             }
         }
     }
