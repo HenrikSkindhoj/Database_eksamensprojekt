@@ -15,17 +15,8 @@ public class DBConnection {
 
     public DBConnection() {
         try {
-            String url = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE + "?autoReconnect=true&useSSL=false";
+            String url = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE + "?serverTimezone=UTC";
             connection = DriverManager.getConnection(url, USERNAME, PASSWORD);
-           /*
-            Statement statement = connection.createStatement();
-            String sql = "select * from coronavacination.employee";
-            ResultSet rs = statement.executeQuery(sql);
-
-            while(rs.next())
-                System.out.println(rs.getString("name"));
-
-            */
 
         } catch (SQLException e) {
             e.printStackTrace();
