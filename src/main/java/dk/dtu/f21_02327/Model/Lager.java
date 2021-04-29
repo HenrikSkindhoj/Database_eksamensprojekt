@@ -3,10 +3,12 @@ package dk.dtu.f21_02327.Model;
 import java.util.*;
 
 public class Lager {
-    private String afdelingsNavn;
+    private Lokation afdeling;
     private HashMap<Vacciner,Integer> vaccinationsTyper;
 
-    public Lager(){
+    public Lager(Lokation afdeling){
+        this.afdeling = afdeling;
+
         vaccinationsTyper = new HashMap<>();
         for(Vacciner vac: Vacciner.values())
         {

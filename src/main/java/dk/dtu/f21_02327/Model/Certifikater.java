@@ -6,8 +6,9 @@ public class Certifikater {
     private int certifikatDato;
     private Vacciner vaccinationsTypeID;
 
-    public Certifikater(){
-
+    public Certifikater()
+    {
+        
     }
 
 }

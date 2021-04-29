@@ -7,7 +7,11 @@ public class Medarbejder {
     private int løn;
     private String jobTitel;
 
-    public Medarbejder(){
-
+    public Medarbejder(int medarbejderID, String navn, int løn, String jobTitel)
+    {
+        this.medarbejderID = medarbejderID;
+        this.navn = navn;
+        this.løn = løn;
+        this.jobTitel = jobTitel;
     }
 }

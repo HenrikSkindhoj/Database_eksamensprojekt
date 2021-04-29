@@ -6,7 +6,22 @@ public class Person {
     private String personNavn;
     Vacciner vaccine;
 
-    public Person(){
+    public Person(int cpr, String personNavn, Vacciner vacciner)
+    {
+        this.cpr = cpr;
+        this.personNavn = personNavn;
+        vaccine = vacciner;
+    }
 
+    public long getCpr() {
+        return cpr;
+    }
+
+    public String getPersonNavn() {
+        return personNavn;
+    }
+
+    public Vacciner getVaccine() {
+        return vaccine;
     }
 }

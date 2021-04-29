@@ -1,30 +1,21 @@
 package dk.dtu.f21_02327;
 
 import dk.dtu.f21_02327.Database.DBConnection;
+import dk.dtu.f21_02327.Database.DBMap;
+import dk.dtu.f21_02327.Database.PersonMapper;
+import dk.dtu.f21_02327.Model.Person;
+import dk.dtu.f21_02327.Model.Vacciner;
 
 import java.sql.*;
 
 public class RunApp {
 
     public static void main(String[] args) {
-        try{
 
-            DBConnection db = new DBConnection();
-            Connection connection = db.getConnection();
-            System.out.println(connection.isClosed());
+        Person personToDB = new Person(1104981123,"Hans Christian Leth", Vacciner.COVAXX);
 
-        } catch(SQLException e){
-            System.out.println(e);
-        }
-
-
-
-
-
-        /*
-        DBConnection connection = new DBConnection();
-        System.out.println(connection.getConnection().isClosed());
-         */
+        PersonMapper someMap = new PersonMapper(new DBConnection());
+        someMap.createPersonInDB(personToDB);
 
     }
 }
