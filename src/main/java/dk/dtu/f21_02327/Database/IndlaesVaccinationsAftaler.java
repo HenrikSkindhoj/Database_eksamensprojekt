@@ -37,7 +37,7 @@ public class IndlaesVaccinationsAftaler {
      * @return List indeholdende VaccinationsAftaler
      * @throws FileNotFoundException
      */
-    public List<VaccinationsAftale> indlaesAftaler(String filename) throws FileNotFoundException, IOException {
+    public List<VaccinationsAftale> indlaesAftaler(String filename) throws IOException {
         List<VaccinationsAftale> aftaler = new ArrayList<VaccinationsAftale>();
 
         BufferedReader in = null;
