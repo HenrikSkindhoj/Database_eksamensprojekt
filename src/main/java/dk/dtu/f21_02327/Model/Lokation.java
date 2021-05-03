@@ -3,7 +3,7 @@ package dk.dtu.f21_02327.Model;
 import java.util.List;
 
 public class Lokation {
-    private final String afdelingsNavn;
+    private String afdelingsNavn;
     private List<Medarbejder> medarbejdere;
     private Lager lager;
 
@@ -30,5 +30,9 @@ public class Lokation {
     public List<Medarbejder> getMedarbejdere()
     {
         return medarbejdere;
+    }
+
+    public String getAfdelingsNavn() {
+        return afdelingsNavn;
     }
 }
