@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
-import dk.dtu.f21_02327.Controller.VaccinationsAftale;
-import dk.dtu.f21_02327.Database.IndlaesVaccinationsAftaler;
+import dk.dtu.f21_02327.Model.VaccinationsAftale;
 
 public class IndlaesAftalerEksempel {
 

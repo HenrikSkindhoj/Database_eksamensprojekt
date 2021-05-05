@@ -18,7 +18,7 @@ import java.sql.*;
  *
  * @author Hans Christian Leth-Nissen
  */
-public class PersonMapper extends DBMap {
+public class PersonMapper{
 
     private DBConnection connector;
 
@@ -90,11 +90,5 @@ public class PersonMapper extends DBMap {
             }
         }
         return insert_person_stmt;
-    }
-
-
-    @Override
-    public boolean createToDB(Object e) {
-        return false;
     }
 }

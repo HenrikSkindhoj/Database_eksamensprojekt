@@ -1,4 +1,4 @@
-package dk.dtu.f21_02327.Controller;
+package dk.dtu.f21_02327.Model;
 
 import dk.dtu.f21_02327.Model.Lokation;
 import dk.dtu.f21_02327.Model.Vacciner;

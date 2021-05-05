@@ -1,13 +1,11 @@
 package dk.dtu.f21_02327.Database;
 
-import dk.dtu.f21_02327.Controller.VaccinationsAftale;
-import dk.dtu.f21_02327.Model.Lokation;
-import dk.dtu.f21_02327.Model.Vacciner;
+import dk.dtu.f21_02327.Model.VaccinationsAftale;
 
 import java.sql.*;
 
 
-public class VaccinationsMapper extends DBMap{
+public class VaccinationsMapper{
 
     private DBConnection connector;
 
@@ -66,8 +64,4 @@ public class VaccinationsMapper extends DBMap{
         return insert_aftale_stmt;
     }
 
-    @Override
-    public boolean createToDB(Object e) {
-        return false;
-    }
 }

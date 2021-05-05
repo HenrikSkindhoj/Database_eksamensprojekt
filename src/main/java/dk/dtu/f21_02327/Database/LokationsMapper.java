@@ -5,7 +5,7 @@ import dk.dtu.f21_02327.Model.Lokation;
 import java.sql.*;
 
 
-public class LokationsMapper extends DBMap {
+public class LokationsMapper{
     private DBConnection connector;
 
     public LokationsMapper(DBConnection connector) {
@@ -71,11 +71,5 @@ public class LokationsMapper extends DBMap {
             }
         }
         return insert_location_stmt;
-    }
-
-
-    @Override
-    public boolean createToDB(Object e) {
-        return false;
     }
 }

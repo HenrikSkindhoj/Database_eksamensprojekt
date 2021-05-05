@@ -10,7 +10,7 @@ package dk.dtu.f21_02327.Database;
  *
  */
 
-import dk.dtu.f21_02327.Controller.VaccinationsAftale;
+import dk.dtu.f21_02327.Model.VaccinationsAftale;
 import dk.dtu.f21_02327.Model.Lokation;
 import dk.dtu.f21_02327.Model.Vacciner;
 
@@ -18,11 +18,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class IndlaesVaccinationsAftaler {

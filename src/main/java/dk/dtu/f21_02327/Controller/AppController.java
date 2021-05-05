@@ -2,6 +2,7 @@ package dk.dtu.f21_02327.Controller;
 
 import dk.dtu.f21_02327.Database.*;
 import dk.dtu.f21_02327.Model.Person;
+import dk.dtu.f21_02327.Model.VaccinationsAftale;
 
 import java.io.IOException;
 import java.sql.SQLException;
