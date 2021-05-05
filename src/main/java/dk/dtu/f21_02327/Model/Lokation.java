@@ -2,12 +2,16 @@ package dk.dtu.f21_02327.Model;
 
 import java.util.List;
 
-public class Lokation {
+public enum Lokation {
+    hill("hill"), kbh("kbh"), aarhus("aarhus"), nakskov("nakskov"),
+    odense("odense"), kolding("kolding");
+
+
     private String afdelingsNavn;
     private List<Medarbejder> medarbejdere;
     private Lager lager;
 
-    public Lokation(String afdelingsNavn)
+    Lokation(String afdelingsNavn)
     {
         this.afdelingsNavn = afdelingsNavn;
     }
