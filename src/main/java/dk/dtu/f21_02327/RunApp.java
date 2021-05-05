@@ -8,13 +8,17 @@ public class RunApp {
 
     public static void main(String[] args) {
         AppController appController = new AppController();
-        //appController.start();
+        appController.start();
+
+        /*
         try {
             appController.createRepports();
         } catch(SQLException e)
         {
             e.printStackTrace();
         }
+
+         */
 
 
     }

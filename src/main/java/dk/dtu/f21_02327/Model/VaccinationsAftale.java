@@ -1,8 +1,5 @@
 package dk.dtu.f21_02327.Model;
 
-import dk.dtu.f21_02327.Model.Lokation;
-import dk.dtu.f21_02327.Model.Vacciner;
-
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -32,7 +29,6 @@ public class VaccinationsAftale {
         this.cprnr = cprnr;
         this.navn = navn;
         this.vaccinationsDato = vaccinationsDato.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
         this.vaccinationsTidspunkt = vaccinationsTidspunkt;
         this.vaccineType = vaccineType;
         this.lokation = lokation;
@@ -49,7 +45,8 @@ public class VaccinationsAftale {
     public java.sql.Date getVaccinationsDato() {
         vaccinationsDato.format(formatter);
 
-        return java.sql.Date.valueOf(vaccinationsDato);
+
+        return java.sql.Date.valueOf(vaccinationsDato.plusDays(1));
     }
 
     public Vacciner getVaccineType() {
