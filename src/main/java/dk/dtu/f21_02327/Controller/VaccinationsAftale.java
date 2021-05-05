@@ -5,6 +5,9 @@ import dk.dtu.f21_02327.Model.Vacciner;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 /**
  * Denne klasse repræsenterer en vaccinationsaftale i den fil der modtages fra sundhedsmyndighederne dagligt.
@@ -15,26 +18,27 @@ import java.time.LocalDate;
  *
  */
 public class VaccinationsAftale {
-    private final long cprnr;
+    private final String cprnr;
     private final String navn;
     private int medarbejderID;
     private final LocalDate vaccinationsDato;
     private int vaccinationsTidspunkt;
     private final Vacciner vaccineType;
     private final Lokation lokation;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    public VaccinationsAftale(long cprnr, String navn, LocalDate vaccinationsDato, int vaccinationsTidspunkt,
+    public VaccinationsAftale(String cprnr, String navn, Date vaccinationsDato, int vaccinationsTidspunkt,
                               Vacciner vaccineType, Lokation lokation) {
         this.cprnr = cprnr;
         this.navn = navn;
-        this.vaccinationsDato = vaccinationsDato;
-        this.vaccinationsTidspunkt = vaccinationsTidspunkt;
+        this.vaccinationsDato = vaccinationsDato.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
+        this.vaccinationsTidspunkt = vaccinationsTidspunkt;
         this.vaccineType = vaccineType;
         this.lokation = lokation;
     }
 
-    public long getCprnr() {
+    public String getCprnr() {
         return cprnr;
     }
 
@@ -42,8 +46,10 @@ public class VaccinationsAftale {
         return navn;
     }
 
-    public LocalDate getVaccinationsDato() {
-        return vaccinationsDato;
+    public java.sql.Date getVaccinationsDato() {
+        vaccinationsDato.format(formatter);
+
+        return java.sql.Date.valueOf(vaccinationsDato);
     }
 
     public Vacciner getVaccineType() {

@@ -12,14 +12,6 @@ import java.sql.*;
 public class RunApp {
 
     public static void main(String[] args) {
-        /*
-        Person personToDB = new Person(1104981123,"Hans Christian Leth", Vacciner.COVAXX);
-
-        PersonMapper someMap = new PersonMapper(new DBConnection());
-        someMap.createPersonInDB(personToDB);
-
-         */
-
         AppController appController = new AppController();
         appController.start();
 

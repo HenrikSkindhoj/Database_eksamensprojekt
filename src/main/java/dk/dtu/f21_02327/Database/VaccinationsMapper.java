@@ -23,12 +23,12 @@ public class VaccinationsMapper extends DBMap{
 
             PreparedStatement ps = getInsertAftaleStatement();
 
-            ps.setInt(2,aftale.getPostalCode());
-            ps.setInt(3,aftale.getVaccineType().ordinal());
-            ps.setInt(4,9);
-            ps.setInt(5, (int) aftale.getCprnr());
-            ps.setInt(6, aftale.getVaccinationsTidspunkt());
-            ps.setDate(7, Date.valueOf(aftale.getVaccinationsDato()));
+            ps.setInt(1,aftale.getPostalCode());
+            ps.setInt(2,aftale.getVaccineType().ordinal());
+            ps.setInt(3,9);
+            ps.setString(4, aftale.getCprnr());
+            ps.setInt(5, aftale.getVaccinationsTidspunkt());
+            ps.setDate(6, aftale.getVaccinationsDato());
 
             ps.executeUpdate();
 

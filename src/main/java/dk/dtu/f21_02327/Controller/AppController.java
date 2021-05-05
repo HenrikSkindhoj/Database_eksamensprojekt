@@ -1,20 +1,19 @@
 package dk.dtu.f21_02327.Controller;
 
-import dk.dtu.f21_02327.Database.DBConnection;
-import dk.dtu.f21_02327.Database.IndlaesAftalerEksempel;
-import dk.dtu.f21_02327.Database.IndlaesVaccinationsAftaler;
-import dk.dtu.f21_02327.Database.VaccinationsMapper;
+import dk.dtu.f21_02327.Database.*;
+import dk.dtu.f21_02327.Model.Person;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.List;
 
 public class AppController {
 
     public void start() {
         IndlaesVaccinationsAftaler indlaes = new IndlaesVaccinationsAftaler();
-        VaccinationsMapper vaccinationsMapper = new VaccinationsMapper(new DBConnection());
+        DBConnection connection = new DBConnection();
+        VaccinationsMapper vaccinationsMapper = new VaccinationsMapper(connection);
+        PersonMapper personMapper = new PersonMapper(connection);
         List<VaccinationsAftale> aftaler = null;
 
         try {
@@ -26,11 +25,23 @@ public class AppController {
             e.printStackTrace();
         }
 
-        for( VaccinationsAftale aftale : aftaler)
-        {
-            System.out.println(aftale.getVaccineType());
+        for (VaccinationsAftale aftale: aftaler) {
+
+            Person newPerson = new Person(aftale.getCprnr(),aftale.getNavn());
+            personMapper.createPersonInDB(newPerson);
+
         }
 
-        vaccinationsMapper.createAftaleInDB(aftaler.get(0));
+        for (VaccinationsAftale aftale : aftaler) {
+            vaccinationsMapper.createAftaleInDB(aftale);
+        }
+        try{
+            connection.getConnection().close();
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+            System.err.println("Error closing the connection to Database");
+        }
+
     }
 }

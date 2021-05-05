@@ -31,7 +31,7 @@ public class IndlaesVaccinationsAftaler {
     public static final String COMMA_DELIMITER = ",";
     private static final int NUMBER_OF_FIELDS_EXPECTED = 6;
     private final String delimiter = SEMICOLON_DELIMITER;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    SimpleDateFormat dateParser = new SimpleDateFormat("yyyyMMdd");
 
     /**
      * Denne metode indlæser en fil med vaccinationsaftaler og returnerer en liste med VaccinationsAfale objekter der repræsenterer indholdet i filen.
@@ -61,31 +61,25 @@ public class IndlaesVaccinationsAftaler {
                             break;
                         case NUMBER_OF_FIELDS_EXPECTED: // Parse values into VaccinationsAftale
 
-                            long cprnr = 0;
-                            try {
-                                cprnr = Long.parseLong(values.get(0));
-                            } catch(NumberFormatException e) {
-                                throw new NumberFormatException("Ugyldig værdi (" +values.get(0) +") for cprnr på linie " +lineNbr);
-                            }
+                            String cprnr = null;
+                            cprnr = values.get(0);
                             String navn = values.get(1);
                             String dato = values.get(2);
                             String tid = values.get(3);
 
-                            try {
-
-                            } catch (Exception e)
-                            {
-                                e.printStackTrace();
-                            }
-                            formatter.parse(dato);
-                            LocalDate vaccinationsTid = LocalDate.parse(dato);
                             // Pad to 4 digits.
                             // ----------------
                             for(int i = 4 - tid.length(); i > 0 ; i--)
                                 tid = "0" +tid;
+                            Date vaccinationsTid = null;
+                            try {
+                                vaccinationsTid = dateParser.parse(dato);
+                            } catch (ParseException e) {
+                                throw new NumberFormatException("Ugyldig værdi (" +dato+tid +") for vaccinationsdato/tid på linie " +lineNbr);
+                            }
                             String vaccineType = values.get(4);
                             String vaccinationsSted = values.get(5);
-                            VaccinationsAftale aftale = new VaccinationsAftale(cprnr, navn, vaccinationsTid,Integer.parseInt(tid), Vacciner.valueOf(vaccineType), Lokation.valueOf(vaccinationsSted));
+                            VaccinationsAftale aftale = new VaccinationsAftale(cprnr,navn,vaccinationsTid,Integer.parseInt(tid),Vacciner.valueOf(vaccineType),Lokation.valueOf(vaccinationsSted));
                             aftaler.add(aftale);
                             break;
                         default: // Wrong file format

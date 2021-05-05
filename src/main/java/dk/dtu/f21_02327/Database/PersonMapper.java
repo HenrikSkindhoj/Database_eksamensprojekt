@@ -50,19 +50,13 @@ public class PersonMapper extends DBMap {
             PreparedStatement ps = getInsertPersonStatement();
 
             // To be removed! Next lines contain values only needed for this execution!
-            Statement statement = connection.createStatement();
-            statement.execute("SET foreign_key_checks = 0");
 
-            ps.setInt(1, (int) person.getCpr());
+            ps.setString(1,person.getCpr());
             ps.setString(2,person.getPersonNavn());
-            ps.setInt(3,person.getVaccine().ordinal());
 
             ps.executeUpdate();
 
             // To be removed! Same reason as above!
-            statement = connection.createStatement();
-            statement.execute("SET foreign_key_checks = 1");
-
 
             connection.commit();
             connection.setAutoCommit(true);
@@ -77,7 +71,7 @@ public class PersonMapper extends DBMap {
     }
 
     private static final String SQL_INSERT_PERSON =
-            "INSERT INTO Person(cpr, name, Vaccines_vaccinationTypeID) VALUES (?,?,?)";
+            "INSERT IGNORE INTO Person(cpr, personNavn) VALUES (?,?)";
 
     private PreparedStatement insert_person_stmt = null;
 
