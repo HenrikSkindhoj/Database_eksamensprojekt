@@ -5,7 +5,7 @@ import dk.dtu.f21_02327.Model.Lokation;
 import dk.dtu.f21_02327.Model.Vacciner;
 
 import java.sql.*;
-import java.time.LocalDate;
+
 
 public class VaccinationsMapper extends DBMap{
 
@@ -28,7 +28,7 @@ public class VaccinationsMapper extends DBMap{
             ps.setInt(4,9);
             ps.setInt(5, (int) aftale.getCprnr());
             ps.setInt(6, aftale.getVaccinationsTidspunkt());
-            ps.setDate(7, (Date) aftale.getVaccinationsDato());
+            ps.setDate(7, Date.valueOf(aftale.getVaccinationsDato()));
 
             ps.executeUpdate();
 

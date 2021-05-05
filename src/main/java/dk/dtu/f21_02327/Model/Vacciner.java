@@ -6,10 +6,10 @@ import java.util.List;
 
 public enum Vacciner {
 
-    COVAXX("covaxx"),
-    DIVOC("divoc"),
-    BLAST3000("blast3000"),
-    ASPERA("aspera");
+    covaxx("covaxx"),
+    divoc("divoc"),
+    blast3000("blast3000"),
+    aspera("aspera");
 
     final public String displayName;
 

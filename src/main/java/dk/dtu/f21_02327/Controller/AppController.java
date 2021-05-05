@@ -30,5 +30,7 @@ public class AppController {
         {
             System.out.println(aftale.getVaccineType());
         }
+
+        vaccinationsMapper.createAftaleInDB(aftaler.get(0));
     }
 }

@@ -4,7 +4,7 @@ import dk.dtu.f21_02327.Model.Lokation;
 import dk.dtu.f21_02327.Model.Vacciner;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * Denne klasse repræsenterer en vaccinationsaftale i den fil der modtages fra sundhedsmyndighederne dagligt.
@@ -18,12 +18,12 @@ public class VaccinationsAftale {
     private final long cprnr;
     private final String navn;
     private int medarbejderID;
-    private final Date vaccinationsDato;
+    private final LocalDate vaccinationsDato;
     private int vaccinationsTidspunkt;
-    private Vacciner vaccineType;
-    private Lokation lokation;
+    private final Vacciner vaccineType;
+    private final Lokation lokation;
 
-    public VaccinationsAftale(long cprnr, String navn, Date vaccinationsDato, int vaccinationsTidspunkt,
+    public VaccinationsAftale(long cprnr, String navn, LocalDate vaccinationsDato, int vaccinationsTidspunkt,
                               Vacciner vaccineType, Lokation lokation) {
         this.cprnr = cprnr;
         this.navn = navn;
@@ -42,7 +42,7 @@ public class VaccinationsAftale {
         return navn;
     }
 
-    public Date getVaccinationsDato() {
+    public LocalDate getVaccinationsDato() {
         return vaccinationsDato;
     }
 
