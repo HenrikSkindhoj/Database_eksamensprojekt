@@ -105,8 +105,6 @@ public class VaccinationsMapper{
         }
     }
 
-    //TODO select statement til at hente alle values til rapport
-
     private PreparedStatement select_rapportvalues_asc_stmt = null;
 
     private PreparedStatement getSelectReportASCStatement(String date)
