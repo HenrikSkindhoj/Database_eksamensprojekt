@@ -20,10 +20,11 @@ public class VaccinationsAftale {
     private final String vaccineType;
     private final String lokation;
 
-    public VaccinationsAftale(long cprnr, String navn, Date vaccinationsDato, String vaccineType, String lokation) {
+    public VaccinationsAftale(long cprnr, String navn, Date vaccinationsDato, int vaccinationsTidspunkt,String vaccineType, String lokation) {
         this.cprnr = cprnr;
         this.navn = navn;
         this.vaccinationsDato = vaccinationsDato;
+        this.vaccinationsTidspunkt = vaccinationsTidspunkt;
         this.vaccineType = vaccineType;
         this.lokation = lokation;
     }
