@@ -25,7 +25,7 @@ public class AppController {
 
         for( VaccinationsAftale aftale : aftaler)
         {
-            System.out.println(aftale.getNavn());
+            System.out.println(aftale.getVaccinationsTidspunkt());
         }
 
     }

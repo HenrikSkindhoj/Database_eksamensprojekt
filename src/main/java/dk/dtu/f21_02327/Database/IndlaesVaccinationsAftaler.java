@@ -81,7 +81,7 @@ public class IndlaesVaccinationsAftaler {
                             }
                             String vaccineType = values.get(4);
                             String vaccinationsSted = values.get(5);
-                            VaccinationsAftale aftale = new VaccinationsAftale(cprnr, navn, vaccinationsTid, vaccineType, vaccinationsSted);
+                            VaccinationsAftale aftale = new VaccinationsAftale(cprnr, navn, vaccinationsTid,Integer.parseInt(tid), vaccineType, vaccinationsSted);
                             aftaler.add(aftale);
                             break;
                         default: // Wrong file format

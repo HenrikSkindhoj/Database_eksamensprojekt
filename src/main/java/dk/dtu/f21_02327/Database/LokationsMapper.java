@@ -12,6 +12,7 @@ public class LokationsMapper extends DBMap {
         this.connector = connector;
     }
 
+    /*
     public boolean createLokaltionInDB(Lokation lokation){
         Connection connection = connector.getConnection();
         try {
@@ -25,7 +26,7 @@ public class LokationsMapper extends DBMap {
 
             ps.setInt(1,lokation.getMedarbejdere().ordinal);
             ps.setString(2,lokation.getAfdelingsNavn());
-            ps.setInt(3, lokation.getLager().);
+            ps.setInt(3, lokation.getLager());
 
             ps.executeUpdate();
 
@@ -45,6 +46,8 @@ public class LokationsMapper extends DBMap {
         }
         return false;
     }
+
+     */
 
 
 

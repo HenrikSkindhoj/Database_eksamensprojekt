@@ -1,11 +1,9 @@
 package dk.dtu.f21_02327.Database;
 
+import dk.dtu.f21_02327.Controller.VaccinationsAftale;
 import dk.dtu.f21_02327.Model.Vacciner;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class VaccinationsMapper extends DBMap{
 
@@ -15,32 +13,55 @@ public class VaccinationsMapper extends DBMap{
         this.connector = connector;
     }
 
-    public boolean createVaccinationInDB(Vacciner vacciner){
+    public boolean createAftaleInDB(VaccinationsAftale aftale)
+    {
+        Connection connection = connector.getConnection();
+        try {
+            connection.setAutoCommit(false);
 
+            PreparedStatement ps = getInsertAftaleStatement();
 
+            ps.setInt(2, aftale.getLokation());
+            ps.setInt(3,aftale.getVaccineType().ordinal());
+            ps.setInt(4,9);
+            ps.setInt(5, (int) aftale.getCprnr());
+            ps.setInt(6, aftale.getVaccinationsTidspunkt());
+            ps.setDate(7, (Date) aftale.getVaccinationsDato());
+
+            ps.executeUpdate();
+
+            connection.commit();
+            connection.setAutoCommit(true);
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Creating aftale in db failed!");
+        }
         return false;
     }
 
-    private static final String SQL_INSERT_VACCINES =
-            "INSERT INTO Vaccines(vaccinationTypeID, vaccinationTypeName, vaccinePrice) VALUES (?,?,?)";
+    private static final String SQL_INSERT_AFTALE =
+            "INSERT INTO VaccinationsAftale(postNR, vaccineTypeID, " +
+                    "medarbejderID, cpr, tidspunkt, dato) VALUES (?,?,?,?,?,?)";
 
-    private PreparedStatement insert_vaccines_stmt = null;
+    private PreparedStatement insert_aftale_stmt = null;
 
-    private PreparedStatement getInsertVaccinesStatement()
+    private PreparedStatement getInsertAftaleStatement()
     {
-        if(insert_vaccines_stmt == null)
+        if(insert_aftale_stmt == null)
         {
             Connection connection = connector.getConnection();
-            try {
-                insert_vaccines_stmt = connection.prepareStatement(
-                        SQL_INSERT_VACCINES,
+            try{
+                insert_aftale_stmt = connection.prepareStatement(
+                        SQL_INSERT_AFTALE,
                         Statement.RETURN_GENERATED_KEYS);
             } catch (SQLException e)
             {
                 e.printStackTrace();
             }
         }
-        return insert_vaccines_stmt;
+        return insert_aftale_stmt;
     }
 
     @Override

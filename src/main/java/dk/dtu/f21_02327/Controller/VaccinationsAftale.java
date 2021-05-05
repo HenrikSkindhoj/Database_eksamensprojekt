@@ -1,6 +1,9 @@
 package dk.dtu.f21_02327.Controller;
 
+import dk.dtu.f21_02327.Model.Vacciner;
+
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -17,7 +20,7 @@ public class VaccinationsAftale {
     private int medarbejderID;
     private final Date vaccinationsDato;
     private int vaccinationsTidspunkt;
-    private final String vaccineType;
+    private final Vacciner vaccineType;
     private final String lokation;
 
     public VaccinationsAftale(long cprnr, String navn, Date vaccinationsDato, int vaccinationsTidspunkt,String vaccineType, String lokation) {
@@ -25,7 +28,8 @@ public class VaccinationsAftale {
         this.navn = navn;
         this.vaccinationsDato = vaccinationsDato;
         this.vaccinationsTidspunkt = vaccinationsTidspunkt;
-        this.vaccineType = vaccineType;
+
+        this.vaccineType = Vacciner.valueOf(vaccineType);
         this.lokation = lokation;
     }
 
@@ -41,12 +45,16 @@ public class VaccinationsAftale {
         return vaccinationsDato;
     }
 
-    public String getVaccineType() {
+    public Vacciner getVaccineType() {
         return vaccineType;
     }
 
     public String getLokation() {
         return lokation;
+    }
+
+    public int getVaccinationsTidspunkt() {
+        return vaccinationsTidspunkt;
     }
 
     @Override
