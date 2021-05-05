@@ -39,4 +39,26 @@ public enum Lokation {
     public String getAfdelingsNavn() {
         return afdelingsNavn;
     }
+
+    public int getPostalCode()
+    {
+
+        switch (this)
+        {
+            case hill:
+                return 3400;
+            case kbh:
+                return 1570;
+            case aarhus:
+                return 8000;
+            case nakskov:
+                return 4900;
+            case odense:
+                return 5000;
+            case kolding:
+                return 6000;
+            default:
+                return 1570;
+        }
+    }
 }

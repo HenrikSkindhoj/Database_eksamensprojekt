@@ -29,9 +29,9 @@ public class MedarbejderHandler {
         {
             for (Vagt vagt: medarbejder.getVagtplan())
             {
-                LocalDateTime medarbejderVagtTime = vagt.getLocalDateTime();
                 if(vagt.getLokation() == lokation)
                 {
+                    LocalDateTime medarbejderVagtTime = vagt.getLocalDateTime();
                     if(medarbejderVagtTime.isBefore(appointmentStart) || medarbejderVagtTime.isAfter(appointmentEnd))
                     {
                         return medarbejder;
