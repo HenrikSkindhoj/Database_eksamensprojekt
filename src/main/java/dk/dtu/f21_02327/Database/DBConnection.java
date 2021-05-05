@@ -7,7 +7,7 @@ public class DBConnection {
 
     private static final String HOST = "localhost";
     private static final int PORT = 3306;
-    private static final String DATABASE = "coronavacination";
+    private static final String DATABASE = "coronavaccinationer";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
     Connection connection;

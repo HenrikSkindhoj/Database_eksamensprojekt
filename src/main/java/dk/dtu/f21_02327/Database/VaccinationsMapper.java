@@ -1,9 +1,11 @@
 package dk.dtu.f21_02327.Database;
 
 import dk.dtu.f21_02327.Controller.VaccinationsAftale;
+import dk.dtu.f21_02327.Model.Lokation;
 import dk.dtu.f21_02327.Model.Vacciner;
 
 import java.sql.*;
+import java.time.LocalDate;
 
 public class VaccinationsMapper extends DBMap{
 
@@ -21,7 +23,7 @@ public class VaccinationsMapper extends DBMap{
 
             PreparedStatement ps = getInsertAftaleStatement();
 
-            ps.setInt(2, aftale.getLokation());
+            ps.setInt(2,aftale.getPostalCode());
             ps.setInt(3,aftale.getVaccineType().ordinal());
             ps.setInt(4,9);
             ps.setInt(5, (int) aftale.getCprnr());

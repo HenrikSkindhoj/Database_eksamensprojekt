@@ -11,6 +11,8 @@ package dk.dtu.f21_02327.Database;
  */
 
 import dk.dtu.f21_02327.Controller.VaccinationsAftale;
+import dk.dtu.f21_02327.Model.Lokation;
+import dk.dtu.f21_02327.Model.Vacciner;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -81,7 +83,7 @@ public class IndlaesVaccinationsAftaler {
                             }
                             String vaccineType = values.get(4);
                             String vaccinationsSted = values.get(5);
-                            VaccinationsAftale aftale = new VaccinationsAftale(cprnr, navn, vaccinationsTid,Integer.parseInt(tid), vaccineType, vaccinationsSted);
+                            VaccinationsAftale aftale = new VaccinationsAftale(cprnr, navn, vaccinationsTid,Integer.parseInt(tid), Vacciner.valueOf(vaccineType), Lokation.valueOf(vaccinationsSted));
                             aftaler.add(aftale);
                             break;
                         default: // Wrong file format

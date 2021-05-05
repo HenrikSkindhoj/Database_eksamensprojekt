@@ -1,9 +1,9 @@
 package dk.dtu.f21_02327.Controller;
 
+import dk.dtu.f21_02327.Model.Lokation;
 import dk.dtu.f21_02327.Model.Vacciner;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -20,16 +20,17 @@ public class VaccinationsAftale {
     private int medarbejderID;
     private final Date vaccinationsDato;
     private int vaccinationsTidspunkt;
-    private final Vacciner vaccineType;
-    private final String lokation;
+    private Vacciner vaccineType;
+    private Lokation lokation;
 
-    public VaccinationsAftale(long cprnr, String navn, Date vaccinationsDato, int vaccinationsTidspunkt,String vaccineType, String lokation) {
+    public VaccinationsAftale(long cprnr, String navn, Date vaccinationsDato, int vaccinationsTidspunkt,
+                              Vacciner vaccineType, Lokation lokation) {
         this.cprnr = cprnr;
         this.navn = navn;
         this.vaccinationsDato = vaccinationsDato;
         this.vaccinationsTidspunkt = vaccinationsTidspunkt;
 
-        this.vaccineType = Vacciner.valueOf(vaccineType);
+        this.vaccineType = vaccineType;
         this.lokation = lokation;
     }
 
@@ -49,12 +50,34 @@ public class VaccinationsAftale {
         return vaccineType;
     }
 
-    public String getLokation() {
+    public Lokation getLokation() {
         return lokation;
     }
 
     public int getVaccinationsTidspunkt() {
         return vaccinationsTidspunkt;
+    }
+
+    public int getPostalCode()
+    {
+
+        switch (this.lokation)
+        {
+            case hill:
+                return 3400;
+            case kbh:
+                return 1570;
+            case aarhus:
+                return 8000;
+            case nakskov:
+                return 4900;
+            case odense:
+                return 5000;
+            case kolding:
+                return 6000;
+            default:
+                return 1570;
+        }
     }
 
     @Override
