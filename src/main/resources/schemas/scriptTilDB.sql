@@ -22,9 +22,7 @@ primary key (medarbejderID)
 
 create table if not exists Lokation(
 postNR int not null,
-
 afdelingsNavn varchar(255),
-antalVaccineret int,
 
 PRIMARY KEY(postNR)
 );
@@ -98,14 +96,14 @@ foreign key(medarbejderID) references Medarbejder(medarbejderID),
 foreign key(cpr) references Person(cpr)
 );
 
-insert into Lokation(postNR,afdelingsNavn,antalVaccineret)
+insert into Lokation(postNR,afdelingsNavn)
 values
-(1570,'kbh',0),
-(5000,'odense',0),
-(8000,'aarhus',0),
-(4900,'nakskov',0),
-(6000,'kolding',0),
-(3400,'hill',0);
+(1570,'kbh'),
+(5000,'odense'),
+(8000,'aarhus'),
+(4900,'nakskov'),
+(6000,'kolding'),
+(3400,'hill');
 
 insert into Medarbejder(navn,løn,jobTitle)
 values
@@ -157,7 +155,7 @@ values
 (10,0,'2021-01-14'),
 (11,1,'2021-02-20'),
 (12,2,'2021-05-04'),
-(13,3,'2021-02-28'),
+(13,3,'2021-02-07'),
 (13,0,'2021-02-28');
 
 insert into Lager(postNR, vaccineTypeID, vaccineAntal)
@@ -189,162 +187,170 @@ values
 
 insert into Vagt(medarbejderID, startTidspunkt, slutTidspunkt, dato)
 values
-(1, 1000, 1700, '2021-05-10'),
-(2, 1000, 1500, '2021-05-10'),
-(3, 800, 1700, '2021-05-10'),
-(4, 1000, 1700, '2021-05-10'),
-(5, 800, 1500, '2021-05-10'),
-(6, 1100, 1800, '2021-05-10'),
-(7, 700, 1400, '2021-05-10'),
-(8, 1200, 1900, '2021-05-10'),
-(9, 1000, 1700, '2021-05-10'),
-(10, 800, 1500, '2021-05-10'),
-(11, 800, 1500, '2021-05-10'),
-(12, 1000, 1700, '2021-05-10'),
-(13, 1100, 1800, '2021-05-10'),
-(1, 1000, 1700, '2021-05-11'),
-(2, 1000, 1500, '2021-05-11'),
-(3, 800, 1700, '2021-05-11'),
-(4, 1000, 1700, '2021-05-11'),
-(5, 800, 1500, '2021-05-11'),
-(6, 1100, 1800, '2021-05-11'),
-(7, 700, 1400, '2021-05-11'),
-(8, 1200, 1900, '2021-05-11'),
-(9, 1000, 1700, '2021-05-11'),
-(10, 800, 1500, '2021-05-11'),
-(11, 800, 1500, '2021-05-11'),
-(12, 1000, 1700, '2021-05-11'),
-(13, 1100, 1800, '2021-05-11'),
-(1, 1000, 1700, '2021-05-12'),
-(2, 1000, 1500, '2021-05-12'),
-(3, 800, 1700, '2021-05-12'),
-(4, 1000, 1700, '2021-05-12'),
-(5, 800, 1500, '2021-05-12'),
-(6, 900, 1800, '2021-05-12'),
-(7, 700, 1400, '2021-05-12'),
-(8, 1200, 1900, '2021-05-12'),
-(9, 1000, 1700, '2021-05-12'),
-(10, 800, 1500, '2021-05-12'),
-(11, 800, 1500, '2021-05-12'),
-(12, 1000, 1700, '2021-05-12'),
-(13, 1100, 1800, '2021-05-12'),
-(1, 1000, 1700, '2021-05-13'),
-(2, 1000, 1500, '2021-05-13'),
-(3, 800, 1700, '2021-05-13'),
-(4, 1000, 1700, '2021-05-13'),
-(5, 800, 1500, '2021-05-13'),
-(6, 1100, 1800, '2021-05-13'),
-(7, 700, 1400, '2021-05-13'),
-(8, 1200, 1900, '2021-05-13'),
-(9, 1000, 1700, '2021-05-13'),
-(10, 800, 1500, '2021-05-13'),
-(11, 800, 1500, '2021-05-13'),
-(12, 1000, 1700, '2021-05-13'),
-(13, 1100, 1800, '2021-05-13'),
-(1, 1000, 1700, '2021-05-14'),
-(2, 1000, 1500, '2021-05-14'),
-(3, 800, 1700, '2021-05-14'),
-(4, 1000, 1700, '2021-05-14'),
-(5, 800, 1500, '2021-05-14'),
-(6, 1100, 1800, '2021-05-14'),
-(7, 700, 1400, '2021-05-14'),
-(8, 1200, 1900, '2021-05-14'),
-(9, 1000, 1700, '2021-05-14'),
-(10, 800, 1500, '2021-05-14'),
-(11, 800, 1500, '2021-05-14'),
-(12, 1000, 1700, '2021-05-14'),
-(13, 1100, 1800, '2021-05-14'),
-(1, 1000, 1700, '2021-05-15'),
-(2, 1000, 1500, '2021-05-15'),
-(3, 800, 1700, '2021-05-15'),
-(4, 1000, 1700, '2021-05-15'),
-(5, 800, 1500, '2021-05-15'),
-(6, 1100, 1800, '2021-05-15'),
-(7, 700, 1400, '2021-05-15'),
-(8, 1200, 1900, '2021-05-15'),
-(9, 1000, 1700, '2021-05-15'),
-(10, 800, 1500, '2021-05-15'),
-(11, 800, 1500, '2021-05-15'),
-(12, 1000, 1700, '2021-05-15'),
-(13, 1100, 1800, '2021-05-15');
+(2, 800, 1600, '2021-05-01'),
+(1, 740, 1540, '2021-04-12'),
+(1, 740, 1540, '2021-04-12'),
+(1, 800, 1600, '2021-06-12'),
+(2, 840, 1700, '2021-07-01'),
+(1, 800, 1600, '2021-06-12'),
+
+(11, 810, 1500, '2021-04-13'),
+(13, 720, 1530, '2021-04-12'),
+(11, 850, 1500, '2021-05-04'),
+(11, 800, 1500, '2021-06-13'),
+(13, 900, 1300, '2021-06-12'),
+(11, 800, 1500, '2021-07-04'),
+
+(8, 800, 1730, '2021-05-25'),
+(7, 900, 1600, '2021-04-30'),
+(8, 800, 1600, '2021-07-25'),
+(7, 900, 1730, '2021-06-30'),
+
+(3, 700, 1500, '2021-04-12'),
+(4, 700, 1500, '2021-04-12'),
+(3, 700, 1500, '2021-06-12'),
+(4, 700, 1500, '2021-06-12'),
+
+(9, 900, 1700, '2021-04-12'),
+(9, 800, 1600, '2021-04-17'),
+(9, 900, 1700, '2021-06-12'),
+(9, 800, 1600, '2021-06-17'),
+
+(6, 900, 1500, '2021-04-15'),
+(5, 900, 1600, '2021-05-03'),
+(6, 900, 1700, '2021-05-12'),
+(6, 900, 1500, '2021-06-15'),
+(5, 900, 1600, '2021-07-03'),
+(6, 900, 1700, '2021-07-12');
+
 
 insert into Vagtplan(postNR, vagtID)
 values
 (1570, 1),
 (1570, 2),
-(5000, 3),
-(5000, 4),
-(8000, 5),
-(8000, 6),
-(4900, 7),
-(4900, 8),
-(6000, 9),
-(6000, 10),
+(1570, 3),
+(1570, 4),
+(1570, 5),
+(1570, 6),
+(3400, 7),
+(3400, 8),
+(3400, 9),
+(3400, 10),
 (3400, 11),
 (3400, 12),
-(3400, 13),
-(1570, 14),
-(1570, 15),
-(5000, 16),
+(4900, 13),
+(4900, 14),
+(4900, 15),
+(4900, 16),
 (5000, 17),
-(8000, 18),
-(8000, 19),
-(4900, 20),
-(4900, 21),
+(5000, 18),
+(5000, 19),
+(5000, 20),
+(6000, 21),
 (6000, 22),
 (6000, 23),
-(3400, 24),
-(3400, 25),
-(3400, 26),
-(1570, 27),
-(1570, 28),
-(5000, 29),
-(5000, 30),
-(8000, 31),
-(8000, 32),
-(4900, 33),
-(4900, 34),
-(6000, 35),
-(6000, 36),
-(3400, 37),
-(3400, 38),
-(3400, 39),
-(1570, 40),
-(1570, 41),
-(5000, 42),
-(5000, 43),
-(8000, 44),
-(8000, 45),
-(4900, 46),
-(4900, 47),
-(6000, 48),
-(6000, 49),
-(3400, 50),
-(3400, 51),
-(3400, 52),
-(1570, 53),
-(1570, 54),
-(5000, 55),
-(5000, 56),
-(8000, 57),
-(8000, 58),
-(4900, 59),
-(4900, 60),
-(6000, 61),
-(6000, 62),
-(3400, 63),
-(3400, 64),
-(3400, 65),
-(1570, 66),
-(1570, 67),
-(5000, 68),
-(5000, 69),
-(8000, 70),
-(8000, 71),
-(4900, 72),
-(4900, 73),
-(6000, 74),
-(6000, 75),
-(3400, 76),
-(3400, 77),
-(3400, 78);
+(6000, 24),
+(8000, 25),
+(8000, 26),
+(8000, 27),
+(8000, 28),
+(8000, 29),
+(8000, 30);
+
+create view IF NOT EXISTS månedligRapport
+as
+select vaccinationsAftale.cpr, vaccinationsAftale.vaccineTypeID, vaccinationsAftale.dato, Vaccine.vaccinePris 
+from vaccinationsAftale
+inner join Vaccine
+where Vaccine.vaccineTypeID = vaccinationsAftale.vaccineTypeID and (vaccinationsAftale.dato between '2021-05-01' AND '2021-05-31');
+
+create view IF NOT EXISTS vagtView
+as
+select Vagt.vagtID, Vagt.medarbejderID, Vagt.startTidspunkt, Vagt.slutTidspunkt, Vagt.dato, Medarbejder.navn, Medarbejder.løn, Medarbejder.jobTitle, VagtPlan.postNR
+from Vagt 
+inner join Medarbejder
+on Vagt.MedarbejderID = Medarbejder.MedarbejderID
+inner join VagtPlan
+on VagtPlan.vagtID = vagt.vagtID;
+
+create view IF NOT EXISTS VaccinationsAftalePlan
+as
+select VaccinationsAftale.postNR, VaccinationsAftale.vaccineTypeID, VaccinationsAftale.medarbejderID, VaccinationsAftale.cpr, person.personNavn, VaccinationsAftale.dato, VaccinationsAftale.tidspunkt, medarbejder.navn
+from VaccinationsAftale
+inner join person
+on VaccinationsAftale.cpr = person.cpr
+inner join medarbejder
+on medarbejder.medarbejderID = VaccinationsAftale.medarbejderID
+ORDER BY postNR;
+
+create view IF NOT EXISTS vagtplanview
+as
+select Vagt.vagtID, Vagt.medarbejderID, Vagt.startTidspunkt, Vagt.slutTidspunkt, Vagt.dato, Vagtplan.PostNR
+from Vagt
+inner join Vagtplan
+where Vagt.vagtID = Vagtplan.vagtID; 
+
+create view IF NOT EXISTS DagsplanView
+as
+select lokation.postNR, vagtplanview.medarbejderID, vagtplanview.dato, certifikat.vaccineTypeID
+from vagtplanview
+inner join lokation
+on vagtplanview.postNR = lokation.postNR and dato = '2021-04-12'
+inner join certifikat
+on vagtplanview.medarbejderID = certifikat.medarbejderID;
+select * from DagsplanView;
+
+create view IF NOT EXISTS certifikatView 
+as
+select certifikat.medarbejderID, certifikat.vaccineTypeID, certifikat.certifikatDato, medarbejder.navn
+from certifikat
+inner join medarbejder
+where certifikat.medarbejderID = medarbejder.medarbejderID;
+
+create view IF NOT EXISTS vaccineAntalView
+as
+select vaccinetypeid,SUM(vaccineAntal)
+from Lager
+Group by vaccineTypeID;
+
+
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `VaccinationPerLokation`(postNR int, dato date) 
+RETURNS int
+BEGIN
+declare antal int;
+select COUNT(*) into antal from vaccinationsAftale
+where postNR = vaccinationsAftale.postNR and dato = vaccinationsAftale.dato;
+RETURN antal;
+END$$
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `daglig_rapport`(dato date)
+BEGIN
+drop table if exists dagligrapport;
+create table dagligrapport
+as
+select VaccinationsAftale.postNR, VaccinationsAftale.vaccineTypeID, VaccinationsAftale.medarbejderID, VaccinationsAftale.cpr, person.personNavn, VaccinationsAftale.dato, VaccinationsAftale.tidspunkt, medarbejder.navn 
+from VaccinationsAftale
+natural join person
+join medarbejder
+where VaccinationsAftale.dato = dato and VaccinationsAftale.cpr = person.cpr and medarbejder.medarbejderID = VaccinationsAftale.medarbejderID;
+
+END$$ 
+
+ 
+CREATE Trigger `Opdater_aftale`
+after delete on vaccinationsAftale
+for each row
+Begin
+update Lager
+set vaccineantal = vaccineantal-1
+where OLD.vaccineTypeID = lager.vaccineTypeID and OLD.postNR = lager.postNR;
+END
+$$
+DELIMITER ;
+
+
+
+
