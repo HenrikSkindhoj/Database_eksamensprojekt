@@ -80,7 +80,6 @@ public class AppController {
                 break;
 
             default:
-                System.out.println("nice meme.");
         }
 
         }
