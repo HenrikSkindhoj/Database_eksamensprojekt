@@ -40,9 +40,6 @@ public class MedarbejderHandler {
             {
                 if(vagt.getLokation() == lokation)
                 {
-                    System.out.println(vagt.getDate());
-                    System.out.println(date);
-                    System.out.println();
                     if(vagt.getDate().isEqual(date))
                     {
                         for(Certifikater cert : medarbejder.getCertifikat())
