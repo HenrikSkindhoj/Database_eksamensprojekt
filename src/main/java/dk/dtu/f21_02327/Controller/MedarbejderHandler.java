@@ -4,6 +4,7 @@ import dk.dtu.f21_02327.Database.LokationsMapper;
 import dk.dtu.f21_02327.Model.*;
 
 import java.sql.SQLException;
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -30,13 +31,8 @@ public class MedarbejderHandler {
         }
     }
 
-    public Medarbejder getAvailWorker(Lokation lokation, LocalDate date, int startTime, Vacciner certVac)
+    public Medarbejder getAvailWorker(Lokation lokation, LocalDate date, Vacciner certVac)
     {
-        LocalDate dateTime = date;
-        int startMin = startTime % 100;
-        int startHour = (startTime - startMin)/100;
-        LocalDateTime appointmentStart = dateTime.atTime(startHour,startMin);
-        LocalDateTime appointmentEnd = dateTime.atTime(startHour,startMin+10);
 
         for(Medarbejder medarbejder: medarbejdere)
         {
@@ -44,12 +40,14 @@ public class MedarbejderHandler {
             {
                 if(vagt.getLokation() == lokation)
                 {
-                    LocalDateTime medarbejderVagtTime = vagt.getLocalDateTime();
-                    if(medarbejderVagtTime.isBefore(appointmentStart) || medarbejderVagtTime.isAfter(appointmentEnd))
+                    System.out.println(vagt.getDate());
+                    System.out.println(date);
+                    System.out.println();
+                    if(vagt.getDate().isEqual(date))
                     {
                         for(Certifikater cert : medarbejder.getCertifikat())
                         {
-                            if(cert.getVaccinationsTypeID() == certVac)
+                            if(cert.getVaccine() == certVac)
                             {
                                 return medarbejder;
                             }

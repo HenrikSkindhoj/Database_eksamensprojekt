@@ -62,7 +62,7 @@ public class AppController {
                 System.out.println("Skriv dato (yyyy-MM-dd): ");
                 String dato = sc.nextLine();
                 try {
-                    createRepports(dato);
+                    createRepports(dato, connection);
                 }
                 catch(SQLException e){
                     e.printStackTrace();
@@ -70,7 +70,12 @@ public class AppController {
                 break;
 
             case "PM":
-                System.out.println("TODO");
+                System.out.println("Skriv start dato (yyyy-MM-dd):");
+                String startDato = sc.nextLine();
+                System.out.println("Skriv slut dato (yyyy-MM-dd):");
+                String slutDato = sc.nextLine();
+                createMonthlyReport(startDato,slutDato, connection);
+                break;
 
             default:
                 System.out.println("nice meme.");
@@ -80,12 +85,17 @@ public class AppController {
 
 
 
-    public void createRepports(String dato) throws SQLException {
-        DBConnection connection = new DBConnection();
+    public void createRepports(String dato, DBConnection connection) throws SQLException {
         VaccinationsMapper vaccinationsMapper = new VaccinationsMapper(connection);
 
-        ArrayList<VaccineRapport> listOfRapports = vaccinationsMapper.LoadReportValues(dato);
-        vaccinationsMapper.createReport(listOfRapports);
+        vaccinationsMapper.createReport(dato);
 
+    }
+
+    public void createMonthlyReport(String startDato, String slutDato, DBConnection connection)
+    {
+        VaccinationsMapper vaccinationsMapper = new VaccinationsMapper(connection);
+
+        vaccinationsMapper.createMontlyReport(startDato,slutDato);
     }
 }

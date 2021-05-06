@@ -98,7 +98,7 @@ public class LokationsMapper{
         {
             int medarbejderID = rs.getInt("medarbejderID");
             LocalDate date = rs.getDate("certifikatDato").toLocalDate();
-            Vacciner vaccineType = Vacciner.values()[rs.getInt("vaccinationsTypeID")];
+            Vacciner vaccineType = Vacciner.values()[rs.getInt("vaccineTypeID")];
 
             certifikaterArrayList.add(new Certifikater(medarbejderID,date,vaccineType));
         }

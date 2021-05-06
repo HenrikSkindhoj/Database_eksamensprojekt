@@ -2,15 +2,13 @@ package dk.dtu.f21_02327.Database;
 
 import com.opencsv.CSVWriter;
 import dk.dtu.f21_02327.Controller.MedarbejderHandler;
-import dk.dtu.f21_02327.Model.Medarbejder;
-import dk.dtu.f21_02327.Model.VaccinationsAftale;
-import dk.dtu.f21_02327.Model.VaccineRapport;
-import dk.dtu.f21_02327.Model.Vacciner;
+import dk.dtu.f21_02327.Model.*;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -43,11 +41,15 @@ public class VaccinationsMapper{
             PreparedStatement ps = getInsertAftaleStatement();
 
             Medarbejder worker = medarbejderHandler.getAvailWorker(aftale.getLokation(),
-                    aftale.getVaccinationsDato().toLocalDate(),
-                    aftale.getVaccinationsTidspunkt(),aftale.getVaccineType());
+                    aftale.getLocalDate(),aftale.getVaccineType());
             ps.setInt(1,aftale.getLokation().getPostalCode());
             ps.setInt(2,aftale.getVaccineType().ordinal());
-            ps.setInt(3,worker.getMedarbejderID());
+            if(worker != null)
+                ps.setInt(3,worker.getMedarbejderID());
+            else {
+                System.err.println("Ingen arbejdstimer er lagt for denne dato");
+                ps.setInt(3,1);
+            }
             ps.setString(4, aftale.getCprnr());
             ps.setInt(5, aftale.getVaccinationsTidspunkt());
             ps.setDate(6, aftale.getVaccinationsDato());
@@ -88,10 +90,18 @@ public class VaccinationsMapper{
         return insert_aftale_stmt;
     }
 
-    public void createReport(ArrayList<VaccineRapport> rapports)
+    public void createReport(String date)
     {
+        ArrayList<VaccineRapport> rapports = null;
+        try {
+            rapports = LoadReportValues(date);
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
         File file = new File("src/main/resources/Reports/Report-" +
-                formatter.format(rapports.get(0).getDato()) +".csv");
+                date +".csv");
         try {
             FileWriter outputfile = new FileWriter(file);
 
@@ -120,6 +130,45 @@ public class VaccinationsMapper{
         }
     }
 
+    public void createMontlyReport(String startDate, String endDate)
+    {
+        ArrayList<MaanedesRapport> reports = null;
+        try {
+            reports = loadMonthlyReportValues(startDate,endDate);
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        File file = new File("src/main/resources/Reports/Report-" +
+                startDate +"_to_"+ endDate +".csv");
+        try {
+            FileWriter outputfile = new FileWriter(file);
+
+            CSVWriter writer = new CSVWriter(outputfile);
+
+            String[] header = {"CPR","Vaccine","Dato","VaccinePris"};
+            writer.writeNext(header);
+
+            for(MaanedesRapport report: reports)
+            {
+                String[] data = {
+                        report.getCpr(),
+                        report.getVaccine().displayName,
+                        report.getDato().toString(),
+                        Integer.toString(report.getVaccinePris())
+                };
+                writer.writeNext(data);
+            }
+
+            String[] footer = {" ", " ", "TOTAL PRICE ->", "=SUM(D2:D"+ reports.size() + ")"};
+            writer.writeNext(footer);
+            writer.close();
+        }catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     private PreparedStatement select_rapportvalues_asc_stmt = null;
 
     private PreparedStatement getSelectReportASCStatement(String date)
@@ -133,7 +182,7 @@ public class VaccinationsMapper{
                         "natural join person " +
                         "join medarbejder " +
                         "where VaccinationsAftale.dato = '"+date+"' and VaccinationsAftale.cpr = person.cpr" +
-                        " and medarbejder.medarbejderID = VaccinationsAftale.medarbejderID;";
+                        " and medarbejder.medarbejderID = VaccinationsAftale.medarbejderID";
         if(select_rapportvalues_asc_stmt == null)
         {
             Connection connection = connector.getConnection();
@@ -166,6 +215,49 @@ public class VaccinationsMapper{
             String medarbejderNavn = rs.getString("medarbejder.navn");
             reporter.add(new VaccineRapport(cpr,personNavn, Vacciner.values()[vaccineID], postNr,
                     vacDate.toLocalDate(), tidspunkt,medarbejderID,medarbejderNavn));
+        }
+
+        return reporter;
+    }
+
+    private PreparedStatement selectMonthlyValues = null;
+
+    private PreparedStatement getSelectMonthlyASCStatement(String startDate, String endDate)
+    {
+        String SQL_MONTHLYREPORT_STATEMENT_ASC =
+                "select vaccinationsAftale.cpr, vaccinationsAftale.vaccineTypeID, vaccinationsAftale.dato, Vaccine.vaccinePris " +
+                "from vaccinationsAftale " +
+                "inner join Vaccine " +
+                "where Vaccine.vaccineTypeID = vaccinationsAftale.vaccineTypeID " +
+                "and (vaccinationsAftale.dato between '"+startDate+"' AND '"+endDate+"')";
+
+        if(selectMonthlyValues == null)
+        {
+            Connection connection = connector.getConnection();
+            try
+            {
+                selectMonthlyValues = connection.prepareStatement(SQL_MONTHLYREPORT_STATEMENT_ASC);
+            }catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        return selectMonthlyValues;
+    }
+
+    public ArrayList<MaanedesRapport> loadMonthlyReportValues(String startDate, String endDate) throws SQLException {
+        ArrayList<MaanedesRapport> reporter = new ArrayList<>();
+        PreparedStatement ps = getSelectMonthlyASCStatement(startDate, endDate);
+        ResultSet rs = ps.executeQuery();
+
+        while(rs.next())
+        {
+            String cpr = rs.getString("vaccinationsAftale.cpr");
+            Vacciner vacc = Vacciner.values()[rs.getInt("vaccinationsAftale.vaccineTypeID")];
+            LocalDate dato = rs.getDate("vaccinationsAftale.dato").toLocalDate();
+            int vaccinePris = rs.getInt("Vaccine.vaccinePris");
+
+            reporter.add(new MaanedesRapport(cpr,vacc,dato,vaccinePris));
         }
 
         return reporter;

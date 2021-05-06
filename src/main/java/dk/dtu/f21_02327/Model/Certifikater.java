@@ -6,13 +6,13 @@ public class Certifikater {
 
     private int medarbejderID;
     private LocalDate certifikatDato;
-    private Vacciner vaccinationsTypeID;
+    private Vacciner vaccine;
 
-    public Certifikater(int medarbejderID, LocalDate certifikatDato, Vacciner vaccinationsTypeID)
+    public Certifikater(int medarbejderID, LocalDate certifikatDato, Vacciner vaccine)
     {
         this.medarbejderID = medarbejderID;
         this.certifikatDato = certifikatDato;
-        this.vaccinationsTypeID = vaccinationsTypeID;
+        this.vaccine = vaccine;
     }
 
     public int getMedarbejderID() {
@@ -23,8 +23,8 @@ public class Certifikater {
         return certifikatDato;
     }
 
-    public Vacciner getVaccinationsTypeID() {
-        return vaccinationsTypeID;
+    public Vacciner getVaccine() {
+        return vaccine;
     }
 
 }

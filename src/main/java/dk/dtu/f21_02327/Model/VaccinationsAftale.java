@@ -45,8 +45,12 @@ public class VaccinationsAftale {
     public java.sql.Date getVaccinationsDato() {
         vaccinationsDato.format(formatter);
 
-
         return java.sql.Date.valueOf(vaccinationsDato.plusDays(1));
+    }
+
+    public LocalDate getLocalDate()
+    {
+        return this.vaccinationsDato;
     }
 
     public Vacciner getVaccineType() {
