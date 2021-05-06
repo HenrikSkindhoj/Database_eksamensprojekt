@@ -21,29 +21,7 @@ public class VaccineRapport
         this.cpr = cpr;
         this.personNavn = personNavn;
         this.vaccineType = vaccineType;
-        switch (lokation)
-        {
-            case 3400:
-                this.lokation = Lokation.hill;
-                break;
-            case 1570:
-                this.lokation = Lokation.kbh;
-                break;
-            case 8000:
-                this.lokation = Lokation.aarhus;
-                break;
-            case 4900:
-                this.lokation = Lokation.nakskov;
-                break;
-            case 5000:
-                this.lokation = Lokation.odense;
-                break;
-            case 6000:
-                this.lokation = Lokation.kolding;
-                break;
-            default:
-                this.lokation = Lokation.kbh;
-        }
+        this.lokation = Lokation.reversePostal(lokation);
         this.dato = dato;
         this.tid = tid;
         this.medarbejderID = medarbejderID;

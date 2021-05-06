@@ -10,6 +10,7 @@ public class Medarbejder {
     private int løn;
     private String jobTitel;
     private ArrayList<Vagt> vagtplan = new ArrayList<>();
+    private ArrayList<Certifikater> certifikat = new ArrayList<>();
 
     public Medarbejder(int medarbejderID, String navn, int løn, String jobTitel)
     {
@@ -19,12 +20,35 @@ public class Medarbejder {
         this.jobTitel = jobTitel;
     }
 
-    public void setVagt(LocalDate localDate, int startTime, int slutTime, Lokation lokation) {
-        Vagt vagt = new Vagt(localDate,startTime,lokation,this);
+    public void setVagt(Vagt vagt) {
         vagtplan.add(vagt);
+    }
+    public void setCertifikat(Certifikater certif)
+    {
+        certifikat.add(certif);
     }
 
     public ArrayList<Vagt> getVagtplan() {
         return vagtplan;
+    }
+
+    public int getMedarbejderID() {
+        return medarbejderID;
+    }
+
+    public String getNavn() {
+        return navn;
+    }
+
+    public int getLøn() {
+        return løn;
+    }
+
+    public String getJobTitel() {
+        return jobTitel;
+    }
+
+    public ArrayList<Certifikater> getCertifikat() {
+        return certifikat;
     }
 }

@@ -1,8 +1,11 @@
 package dk.dtu.f21_02327.Database;
 
-import dk.dtu.f21_02327.Model.Lokation;
+import dk.dtu.f21_02327.Model.*;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 
 public class LokationsMapper{
@@ -12,64 +15,114 @@ public class LokationsMapper{
         this.connector = connector;
     }
 
-    /*
-    public boolean createLokaltionInDB(Lokation lokation){
-        Connection connection = connector.getConnection();
-        try {
-            connection.setAutoCommit(false);
+    private PreparedStatement select_medarbejdereFromDate_asc_stmt = null;
 
-            PreparedStatement ps = getInsertLocationStatement();
-
-            // To be removed! Next lines contain values only needed for this execution!
-            Statement statement = connection.createStatement();
-            statement.execute("SET foreign_key_checks = 0");
-
-            ps.setInt(1,lokation.getMedarbejdere().ordinal);
-            ps.setString(2,lokation.getAfdelingsNavn());
-            ps.setInt(3, lokation.getLager());
-
-            ps.executeUpdate();
-
-            // To be removed! Same reason as above!
-            statement = connection.createStatement();
-            statement.execute("SET foreign_key_checks = 1");
-
-
-            connection.commit();
-            connection.setAutoCommit(true);
-            return true;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.err.println("Creating loaction in db failed! \n" +
-                    "Check if database primitives are correct (int, String)");
-        }
-        return false;
-    }
-
-     */
-
-
-
-    private static final String SQL_INSERT_LOCATION =
-            "INSERT INTO Location(deptName, Employee_employeeID, Inventory) VALUES (?,?,?)";
-
-    private PreparedStatement insert_location_stmt = null;
-
-    private PreparedStatement getInsertLocationStatement()
+    private PreparedStatement getSelectMedarbejdereASCStatement()
     {
-        if(insert_location_stmt == null)
+        //TODO få sql query af henrik
+        String SQL_SELECT_MEDARBEJDERE_ASC = "select Vagt.vagtID, Vagt.medarbejderID, Vagt.startTidspunkt," +
+                " Vagt.slutTidspunkt, Vagt.dato," +
+                " Medarbejder.MedarbejderID, Medarbejder.navn," +
+                " Medarbejder.løn, Medarbejder.jobTitle, VagtPlan.postNR " +
+                "from Vagt " +
+                "inner join Medarbejder " +
+                "on Vagt.MedarbejderID = Medarbejder.MedarbejderID " +
+                "inner join VagtPlan " +
+                "on VagtPlan.vagtID = vagt.vagtID";
+
+        if(select_medarbejdereFromDate_asc_stmt == null)
         {
             Connection connection = connector.getConnection();
             try {
-                insert_location_stmt = connection.prepareStatement(
-                        SQL_INSERT_LOCATION,
-                        Statement.RETURN_GENERATED_KEYS);
+                select_medarbejdereFromDate_asc_stmt = connection.prepareStatement(
+                        SQL_SELECT_MEDARBEJDERE_ASC);
             } catch (SQLException e)
             {
                 e.printStackTrace();
             }
         }
-        return insert_location_stmt;
+        return select_medarbejdereFromDate_asc_stmt;
+    }
+
+    public ArrayList<Medarbejder> loadMedarbejdere() throws SQLException {
+        ArrayList<Medarbejder> medarbejdere = new ArrayList<>();
+        PreparedStatement ps = getSelectMedarbejdereASCStatement();
+        ResultSet rs = ps.executeQuery();
+        boolean boo = false;
+
+        while(rs.next())
+        {
+            int medarbejderID = rs.getInt("medarbejderID");
+            String navn = rs.getString("navn");
+            int løn = rs.getInt("løn");
+            String jobTitle = rs.getString("jobTitle");
+
+            Medarbejder medarbejder = new Medarbejder(medarbejderID,navn,løn,jobTitle);
+
+            for (Medarbejder medarbej: medarbejdere)
+            {
+                if(medarbejder.getMedarbejderID() == medarbej.getMedarbejderID())
+                {
+                    boo = true;
+                    medarbejder = medarbej;
+                    break;
+                }
+            }
+
+            if(!boo)
+            {
+                medarbejdere.add(medarbejder);
+
+            }
+            boo = false;
+
+            LocalDate shiftDate = rs.getDate("Vagt.dato").toLocalDate();
+            int startTime = rs.getInt("Vagt.startTidspunkt");
+            int slutTime = rs.getInt("Vagt.slutTidspunkt");
+            int postnr = rs.getInt("Vagtplan.postNr");
+
+
+            Vagt vagt = new Vagt(shiftDate,startTime, slutTime, Lokation.reversePostal(postnr),medarbejder);
+            medarbejder.setVagt(vagt);
+
+        }
+        return medarbejdere;
+    }
+
+    public LinkedList<Certifikater> loadCertificates() throws SQLException {
+        LinkedList<Certifikater> certifikaterArrayList = new LinkedList<>();
+        PreparedStatement ps = getSelectCertifcateASCStatement();
+        ResultSet rs = ps.executeQuery();
+
+        while(rs.next())
+        {
+            int medarbejderID = rs.getInt("medarbejderID");
+            LocalDate date = rs.getDate("certifikatDato").toLocalDate();
+            Vacciner vaccineType = Vacciner.values()[rs.getInt("vaccinationsTypeID")];
+
+            certifikaterArrayList.add(new Certifikater(medarbejderID,date,vaccineType));
+        }
+
+        return certifikaterArrayList;
+    }
+    private PreparedStatement select_certifcate_asc_stmt = null;
+
+    private PreparedStatement getSelectCertifcateASCStatement()
+    {
+        //TODO få sql query af henrik
+        String SQL_SELECT_Certificates_ASC = "SELECT * FROM Certifikat";
+
+        if(select_certifcate_asc_stmt == null)
+        {
+            Connection connection = connector.getConnection();
+            try {
+                select_certifcate_asc_stmt = connection.prepareStatement(
+                        SQL_SELECT_Certificates_ASC);
+            } catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        return select_certifcate_asc_stmt;
     }
 }

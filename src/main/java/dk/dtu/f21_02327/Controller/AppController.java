@@ -58,8 +58,11 @@ public class AppController {
                 break;
 
             case "PD":
+
+                System.out.println("Skriv dato (yyyy-MM-dd): ");
+                String dato = sc.nextLine();
                 try {
-                    createRepports();
+                    createRepports(dato);
                 }
                 catch(SQLException e){
                     e.printStackTrace();
@@ -77,11 +80,11 @@ public class AppController {
 
 
 
-    public void createRepports() throws SQLException {
+    public void createRepports(String dato) throws SQLException {
         DBConnection connection = new DBConnection();
         VaccinationsMapper vaccinationsMapper = new VaccinationsMapper(connection);
 
-        ArrayList<VaccineRapport> listOfRapports = vaccinationsMapper.LoadReportValues("2021-04-11");
+        ArrayList<VaccineRapport> listOfRapports = vaccinationsMapper.LoadReportValues(dato);
         vaccinationsMapper.createReport(listOfRapports);
 
     }

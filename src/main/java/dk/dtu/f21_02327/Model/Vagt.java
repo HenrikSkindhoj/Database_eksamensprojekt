@@ -10,11 +10,11 @@ public class Vagt {
     Medarbejder medarbejder;
     Lokation lokation;
 
-    Vagt(LocalDate date, int startTime, Lokation lokation,Medarbejder medarbejder)
+    public Vagt(LocalDate date, int startTime,int endTime, Lokation lokation,Medarbejder medarbejder)
     {
         this.date = date;
         this.startTime = startTime;
-        this.endTime = startTime + 10;
+        this.endTime = endTime;
         this.medarbejder = medarbejder;
         this.lokation = lokation;
     }

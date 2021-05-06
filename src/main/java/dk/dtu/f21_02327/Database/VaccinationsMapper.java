@@ -1,6 +1,8 @@
 package dk.dtu.f21_02327.Database;
 
 import com.opencsv.CSVWriter;
+import dk.dtu.f21_02327.Controller.MedarbejderHandler;
+import dk.dtu.f21_02327.Model.Medarbejder;
 import dk.dtu.f21_02327.Model.VaccinationsAftale;
 import dk.dtu.f21_02327.Model.VaccineRapport;
 import dk.dtu.f21_02327.Model.Vacciner;
@@ -16,10 +18,20 @@ import java.util.ArrayList;
 public class VaccinationsMapper{
 
     private DBConnection connector;
+    private LokationsMapper lokationsMapper;
+    private MedarbejderHandler medarbejderHandler;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public VaccinationsMapper(DBConnection connector) {
         this.connector = connector;
+        this.lokationsMapper = new LokationsMapper(connector);
+        try {
+            this.medarbejderHandler = new MedarbejderHandler(lokationsMapper);
+        } catch (SQLException e)
+        {
+            System.err.println("Wow an error occurred in loading values");
+            e.printStackTrace();
+        }
     }
 
     public boolean createAftaleInDB(VaccinationsAftale aftale)
@@ -30,9 +42,12 @@ public class VaccinationsMapper{
 
             PreparedStatement ps = getInsertAftaleStatement();
 
+            Medarbejder worker = medarbejderHandler.getAvailWorker(aftale.getLokation(),
+                    aftale.getVaccinationsDato().toLocalDate(),
+                    aftale.getVaccinationsTidspunkt(),aftale.getVaccineType());
             ps.setInt(1,aftale.getLokation().getPostalCode());
             ps.setInt(2,aftale.getVaccineType().ordinal());
-            ps.setInt(3,9);
+            ps.setInt(3,worker.getMedarbejderID());
             ps.setString(4, aftale.getCprnr());
             ps.setInt(5, aftale.getVaccinationsTidspunkt());
             ps.setDate(6, aftale.getVaccinationsDato());
