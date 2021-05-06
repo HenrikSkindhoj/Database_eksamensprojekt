@@ -29,9 +29,11 @@ public class AppController {
 
         switch (command){
             case "LD":
+                System.out.println("Skriv filens navn: ");
+                String fil = sc.nextLine();
                 try {
 
-                    aftaler = indlaes.indlaesAftaler("src/main/resources/docs/vaccinationsaftaler.csv");
+                    aftaler = indlaes.indlaesAftaler("src/main/resources/docs/"+fil+".csv");
 
                 } catch (IOException e)
                 {

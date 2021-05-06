@@ -42,21 +42,14 @@ public class PersonMapper{
     public boolean createPersonInDB(Person person) {
         Connection connection = connector.getConnection();
         try {
-            // setAutoCommit does the following:
-            // See all the execute()?
-            // When set to autoCommit it allows us to execute multiple statements in one connection!
             connection.setAutoCommit(false);
 
             PreparedStatement ps = getInsertPersonStatement();
-
-            // To be removed! Next lines contain values only needed for this execution!
 
             ps.setString(1,person.getCpr());
             ps.setString(2,person.getPersonNavn());
 
             ps.executeUpdate();
-
-            // To be removed! Same reason as above!
 
             connection.commit();
             connection.setAutoCommit(true);

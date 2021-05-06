@@ -10,16 +10,5 @@ public class RunApp {
         AppController appController = new AppController();
         appController.start();
 
-        /*
-        try {
-            appController.createRepports();
-        } catch(SQLException e)
-        {
-            e.printStackTrace();
-        }
-
-         */
-
-
     }
 }
